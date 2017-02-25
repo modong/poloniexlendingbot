@@ -73,7 +73,7 @@ def init(cfg, api1, log1, data, maxtolend, dry_run1, analysis, notify_conf1):
 
     sleep_time = sleep_time_active  # Start with active mode
 
-    if notify_conf['enable_notifications']:
+    if notify_conf['notify_summary_minutes']:
         scheduler = sched.scheduler(time.time, time.sleep)
         # Wait 10 seconds before firing the first summary notifcation, then use the config time value for future updates
         scheduler.enter(10, 1, notify_summary, (int(notify_conf['notify_summary_minutes']) * 60, ))
