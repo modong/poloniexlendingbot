@@ -135,7 +135,9 @@ def get_notification_config():
     for conf in ['notify_tx_coins', 'notify_xday_threshold', 'email', 'slack', 'telegram']:
         notify_conf[conf] = getboolean('notifications', conf)
 
-    notify_conf['notify_summary_minutes'] = int(get('notifications', 'notify_summary_minutes'))
+    # in order not to break current config, parsing for False
+    notify_summary_minutes = get('notifications', 'notify_summary_minutes')
+    notify_conf['notify_summary_minutes'] = 0 if notify_summary_minutes == 'False' else int(notify_summary_minutes)
 
     if notify_conf['email']:
         for conf in ['email_login_address', 'email_login_password', 'email_smtp_server', 'email_smtp_port',
